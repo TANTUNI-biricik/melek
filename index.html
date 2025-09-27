@@ -41,7 +41,7 @@ body {
 }
 
 /* Medya Galerisi */
-#mediaContainer{ max-width:500px; margin:20px auto; text-align:center; }
+#mediaContainer{ max-width:500px; margin:20px auto; text-align:center; display:none; }
 #mediaContainer img, #mediaContainer video{ border-radius:12px; width:100%; margin-top:10px; }
 #mediaContainer button{ margin-top:10px; padding:10px 15px; border:none; border-radius:8px; background:#ff4081; color:white; cursor:pointer; margin-left:5px; margin-right:5px; }
 </style>
@@ -49,10 +49,10 @@ body {
 <body>
 
 <!-- Pasta -->
-<div class="cake" onclick="startParty()">🎂</div>
+<div class="cake" onclick="showEnvelope()">🎂</div>
 
 <!-- Zarf -->
-<div class="envelope" id="envelope" onclick="showNote()">✉️</div>
+<div class="envelope" id="envelope" onclick="showMediaAndMusic()">✉️</div>
 
 <!-- Mesaj -->
 <div class="note" id="note"></div>
@@ -79,8 +79,7 @@ body {
 // Müzik verileri
 const songs=[
   {name:"eşşek",url:"muzik1.mp3",cover:"melek1.png"},
-  {name:"davlumbaz",url:"muzik2.mp3",cover:"melek2.png"},
-  {name:"",url:"",cover:""}
+  {name:"davlumbaz",url:"muzik2.mp3",cover:"melek2.png"}
 ];
 const audio=document.getElementById("bgMusic");
 const songName=document.getElementById("songName");
@@ -105,23 +104,28 @@ const mediaItems=[
 let currentMedia=0;
 const mediaContainer=document.getElementById("mediaContainer");
 
-// Parti başlat
-function startParty(){
-  document.body.style.background="linear-gradient(to right,#ffdde1,#ee9ca7)";
+// Pasta tıklandığında zarf göster
+function showEnvelope(){
   document.querySelector(".cake").style.display="none";
   document.getElementById("envelope").style.display="block";
+  document.body.style.background="linear-gradient(to right,#ffdde1,#ee9ca7)";
+}
+
+// Zarf tıklandığında medya ve müzik başlat
+function showMediaAndMusic(){
+  if(noteShown) return;
+  noteShown=true;
+  document.getElementById("envelope").style.display="none";
+  mediaContainer.style.display="block";
   document.getElementById("player").style.display="flex";
+  showMedia(currentMedia);
+  typeWriter(message,noteBox);
   playSong();
 }
 
-// Zarf açılınca mesaj
-function showNote(){
-  if(noteShown) return;
-  noteShown=true;
-  noteBox.style.display="block";
-  typeWriter(message,noteBox);
-}
+// Mesaj
 function typeWriter(text,element){
+  element.style.display="block";
   element.innerHTML="";
   let i=0;
   const interval=setInterval(()=>{
@@ -157,7 +161,7 @@ function showMedia(index){
   if(media.type==="image"){
     html=`<img src="${media.src}">`;
   } else if(media.type==="video"){
-    html=`<video controls>
+    html=`<video controls autoplay>
             <source src="${media.src}" type="video/mp4">
             Tarayıcınız video etiketini desteklemiyor.
           </video>`;
@@ -176,9 +180,6 @@ function prevMedia(){
   currentMedia=(currentMedia-1+mediaItems.length)%mediaItems.length;
   showMedia(currentMedia);
 }
-
-// İlk medya yükle
-showMedia(currentMedia);
 </script>
 </body>
 </html>
