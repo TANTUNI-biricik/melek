@@ -119,7 +119,12 @@ function showMediaAndMusic(){
   mediaContainer.style.display="block";
   document.getElementById("player").style.display="flex";
   showMedia(currentMedia);
-  typeWriter(message,noteBox);
+
+  // Mesajı video sonrası yavaşça göster
+  setTimeout(() => {
+    typeWriter(message,noteBox);
+  }, 500); // 0.5 saniye gecikme ile
+
   playSong();
 }
 
@@ -161,7 +166,7 @@ function showMedia(index){
   if(media.type==="image"){
     html=`<img src="${media.src}">`;
   } else if(media.type==="video"){
-    html=`<video controls autoplay>
+    html=`<video id="mediaVideo" controls>
             <source src="${media.src}" type="video/mp4">
             Tarayıcınız video etiketini desteklemiyor.
           </video>`;
@@ -171,6 +176,14 @@ function showMedia(index){
           <button onclick="nextMedia()">Sonraki ➡️</button>
          </div>`;
   mediaContainer.innerHTML=html;
+
+  // Video varsa oynat
+  const videoElement = document.getElementById("mediaVideo");
+  if(videoElement){
+    videoElement.play().catch(e=>{
+      console.log("Video otomatik oynatılamadı:", e);
+    });
+  }
 }
 function nextMedia(){
   currentMedia=(currentMedia+1)%mediaItems.length;
