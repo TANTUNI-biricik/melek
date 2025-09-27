@@ -1,277 +1,184 @@
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Doğum Günün Kutlu Olsun!</title>
-  <style>
-    body {
-      text-align: center;
-      background: #fff5f7;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-      transition: background 1s;
-    }
-    .cake {
-      font-size: 120px;
-      margin-top: 150px;
-      cursor: pointer;
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
+<meta charset="UTF-8">
+<title>Doğum Günün Kutlu Olsun!</title>
+<style>
+body {
+  text-align: center;
+  background: #fff5f7;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  transition: background 1s;
+}
 
-    /* Zarf */
-    .envelope {
-      font-size: 100px;
-      cursor: pointer;
-      display: none;
-      margin-top: 50px;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
+/* Pasta Animasyonu */
+.cake { font-size:120px; margin-top:150px; cursor:pointer; animation:float 3s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
 
-    /* Mesaj Kutusu */
-    .note {
-      display: none;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 500px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      font-size: 18px;
-      text-align: left;
-      line-height: 1.5;
-      animation: slideUp 1s forwards;
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+/* Zarf */
+.envelope { font-size:100px; cursor:pointer; display:none; margin-top:50px; animation:bounce 2s infinite; }
+@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
 
-    /* 🎶 Müzik Çalar */
-    .music-player {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.95);
-      padding: 15px 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.25);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 16px;
-      display: none;
-      z-index: 9999;
-    }
-    
-    .music-player button {
-      border: none;
-      padding: 12px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: 0.3s;
-      background: #ff4081;
-      color: white;
-    }
-    .music-player button:hover {
-      background: #e73370;
-    }
-    .music-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 180px;
-    }
-    .music-info img {
-      width: 55px;
-      height: 55px;
-      border-radius: 8px;
-    }
-    .music-info span {
-      font-weight: bold;
-      color: #333;
-      font-size: 16px;
-    }
+/* Mesaj Kutusu */
+.note { display:none; margin:20px auto; padding:20px; max-width:500px; background:white; border-radius:12px; box-shadow:0 0 15px rgba(0,0,0,0.3); font-size:18px; text-align:left; line-height:1.5; animation:slideUp 1s forwards; white-space:pre-wrap; }
+@keyframes slideUp { from{transform:translateY(100%);opacity:0;} to{transform:translateY(0);opacity:1;} }
 
-    /* 📱 Telefon uyumluluğu */
-    @media (max-width: 600px) {
-      .music-player {
-        bottom: 40px;
-        padding: 12px 18px;
-        gap: 12px;
-        font-size: 14px;
-      }
-      .music-player button {
-        padding: 10px 14px;
-        font-size: 16px;
-      }
-      .music-info img {
-        width: 45px;
-        height: 45px;
-      }
-      .music-info span {
-        font-size: 14px;
-      }
-    }
+/* Müzik Çalar */
+.music-player { position: fixed; bottom:100px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.95); padding:15px 25px; border-radius:15px; box-shadow:0 0 12px rgba(0,0,0,0.25); display:flex; align-items:center; gap:16px; font-size:16px; display:none; z-index:9999; }
+.music-player button { border:none; padding:12px 16px; border-radius:8px; cursor:pointer; font-size:18px; transition:0.3s; background:#ff4081; color:white; }
+.music-player button:hover { background:#e73370; }
+.music-info { display:flex; align-items:center; gap:12px; min-width:180px; }
+.music-info img { width:55px; height:55px; border-radius:8px; }
+.music-info span { font-weight:bold; color:#333; font-size:16px; }
 
-    /* Medya Galerisi */
-    #mediaContainer {
-      max-width: 500px;
-      margin: 20px auto;
-      text-align: center;
-    }
-    #mediaContainer img, #mediaContainer video {
-      border-radius: 12px;
-      width: 100%;
-      margin-top: 10px;
-    }
-    #mediaContainer button {
-      margin-top: 10px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      background: #ff4081;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
+/* Telefon uyumluluğu */
+@media(max-width:600px){
+  .music-player{ bottom:40px; padding:12px 18px; gap:12px; font-size:14px; }
+  .music-player button{ padding:10px 14px; font-size:16px; }
+  .music-info img{ width:45px; height:45px; }
+  .music-info span{ font-size:14px; }
+}
+
+/* Medya Galerisi */
+#mediaContainer{ max-width:500px; margin:20px auto; text-align:center; }
+#mediaContainer img, #mediaContainer video{ border-radius:12px; width:100%; margin-top:10px; }
+#mediaContainer button{ margin-top:10px; padding:10px 15px; border:none; border-radius:8px; background:#ff4081; color:white; cursor:pointer; margin-left:5px; margin-right:5px; }
+</style>
 </head>
 <body>
-  <!-- İlk sadece pasta -->
-  <div class="cake" onclick="startParty()">🎂</div>
 
-  <!-- Zarf -->
-  <div class="envelope" id="envelope" onclick="showNote()">✉️</div>
+<!-- Pasta -->
+<div class="cake" onclick="startParty()">🎂</div>
 
-  <!-- Mesaj -->
-  <div class="note" id="note"></div>
+<!-- Zarf -->
+<div class="envelope" id="envelope" onclick="showNote()">✉️</div>
 
-  <!-- Medya Galerisi -->
-  <div id="mediaContainer"></div>
+<!-- Mesaj -->
+<div class="note" id="note"></div>
 
-  <!-- Müzik -->
-  <audio id="bgMusic" loop></audio>
+<!-- Medya Galerisi -->
+<div id="mediaContainer"></div>
 
-  <!-- Müzik Çalar -->
-  <div class="music-player" id="player">
-    <div class="music-info">
-      <img id="coverArt" src="" alt="Kapak">
-      <span id="songName">Şarkı yükleniyor...</span>
-    </div>
-    <button onclick="prevSong()">⏮️</button>
-    <button onclick="togglePlay()">⏯️</button>
-    <button onclick="nextSong()">⏭️</button>
-    <button id="volumeBtn" onclick="cycleVolume()">🔊 ▁</button>
+<!-- Müzik -->
+<audio id="bgMusic" loop></audio>
+
+<!-- Müzik Çalar -->
+<div class="music-player" id="player">
+  <div class="music-info">
+    <img id="coverArt" src="" alt="Kapak">
+    <span id="songName">Şarkı yükleniyor...</span>
   </div>
+  <button onclick="prevSong()">⏮️</button>
+  <button onclick="togglePlay()">⏯️</button>
+  <button onclick="nextSong()">⏭️</button>
+  <button id="volumeBtn" onclick="cycleVolume()">🔊 ▁</button>
+</div>
 
-  <script>
-    // Müzik verileri
-    const songs = [
-      {name: "eşşek", url: "muzik1.mp3", cover:"melek1.png"},
-      {name: "davlumbaz", url: "muzik2.mp3", cover:"melek2.png"},
-      {name: "", url: "", cover:""}
-    ];
+<script>
+// Müzik verileri
+const songs=[
+  {name:"eşşek",url:"muzik1.mp3",cover:"melek1.png"},
+  {name:"davlumbaz",url:"muzik2.mp3",cover:"melek2.png"},
+  {name:"",url:"",cover:""}
+];
+const audio=document.getElementById("bgMusic");
+const songName=document.getElementById("songName");
+const coverArt=document.getElementById("coverArt");
+const noteBox=document.getElementById("note");
+const volumeBtn=document.getElementById("volumeBtn");
+let currentSong=0;
+let volumeLevel=1;
+let noteShown=false;
+const volumeSteps=[0.2,0.4,0.7,1.0];
 
-    const audio = document.getElementById("bgMusic");
-    const songName = document.getElementById("songName");
-    const coverArt = document.getElementById("coverArt");
-    const noteBox = document.getElementById("note");
-    const volumeBtn = document.getElementById("volumeBtn");
-    let currentSong = 0;
-    let volumeLevel = 1;
-    let noteShown = false;
-    const volumeSteps = [0.2, 0.4, 0.7, 1.0];
+// Mesaj
+const message="pişt eşşek nabıyon hıdırbııdırı diyişinden sonra bu süprizi yapmaya başladım ufak ufak geliştire geliştire bu kadar oldu 30.1. 🎉🎂💖";
 
-    const message = "pişt eşşek nabıyon hıdırbııdırı diyişinden sonra bu süprizi yapmaya başladım ufak ufak geliştire geliştire bu kadar oldu  30.1.  🎉🎂💖  ";
+// Medya Galerisi
+const mediaItems=[
+  {type:"video",src:"video1.mp4"},
+  {type:"image",src:"foto1.png"},
+  {type:"image",src:"foto2.png"},
+  {type:"image",src:"foto3.png"}
+];
+let currentMedia=0;
+const mediaContainer=document.getElementById("mediaContainer");
 
-    // Medya galerisi
-    const mediaItems = [
-      {type: "video", src: "video1.mp4"},
-      {type: "image", src: "foto1.png"},
-      {type: "image", src: "foto2.png"},
-      {type: "image", src: "foto3.png"}
-    ];
-    let currentMedia = 0;
-    const mediaContainer = document.getElementById("mediaContainer");
+// Parti başlat
+function startParty(){
+  document.body.style.background="linear-gradient(to right,#ffdde1,#ee9ca7)";
+  document.querySelector(".cake").style.display="none";
+  document.getElementById("envelope").style.display="block";
+  document.getElementById("player").style.display="flex";
+  playSong();
+}
 
-    function startParty() {
-      document.body.style.background = "linear-gradient(to right, #ffdde1, #ee9ca7)";
-      document.querySelector(".cake").style.display = "none";
-      document.getElementById("envelope").style.display = "block";
-      document.getElementById("player").style.display = "flex";
-      playSong();
-    }
+// Zarf açılınca mesaj
+function showNote(){
+  if(noteShown) return;
+  noteShown=true;
+  noteBox.style.display="block";
+  typeWriter(message,noteBox);
+}
+function typeWriter(text,element){
+  element.innerHTML="";
+  let i=0;
+  const interval=setInterval(()=>{
+    element.innerHTML+=text.charAt(i);
+    i++;
+    if(i>=text.length) clearInterval(interval);
+  },50);
+}
 
-    function showNote() {
-      if (noteShown) return;
-      noteShown = true;
-      noteBox.style.display = "block";
-      noteBox.innerHTML = message; // HTML olmasın sadece metin
-    }
+// Müzik Fonksiyonları
+function playSong(){
+  audio.src=songs[currentSong].url;
+  songName.textContent=songs[currentSong].name;
+  coverArt.src=songs[currentSong].cover;
+  audio.volume=volumeSteps[0];
+  audio.play().catch(e=>console.log("Müzik engellendi:",e));
+}
+function togglePlay(){ audio.paused?audio.play():audio.pause(); }
+function nextSong(){ currentSong=(currentSong+1)%songs.length; playSong(); }
+function prevSong(){ currentSong=(currentSong-1+songs.length)%songs.length; playSong(); }
+function cycleVolume(){
+  volumeLevel++;
+  if(volumeLevel>4) volumeLevel=1;
+  audio.volume=volumeSteps[volumeLevel-1];
+  const symbols=["🔊 ▁","🔊 ▁▃","🔊 ▁▃▆","🔊 ▁▃▆█"];
+  volumeBtn.textContent=symbols[volumeLevel-1];
+}
 
-    // Müzik fonksiyonları
-    function playSong() {
-      audio.src = songs[currentSong].url;
-      songName.textContent = songs[currentSong].name;
-      coverArt.src = songs[currentSong].cover;
-      audio.volume = volumeSteps[0];
-      audio.play().catch((e)=>{console.log("Müzik engellendi:", e)});
-    }
-    function togglePlay() {
-      if (audio.paused) { audio.play(); } else { audio.pause(); }
-    }
-    function nextSong() {
-      currentSong = (currentSong + 1) % songs.length;
-      playSong();
-    }
-    function prevSong() {
-      currentSong = (currentSong - 1 + songs.length) % songs.length;
-      playSong();
-    }
-    function cycleVolume() {
-      volumeLevel++;
-      if (volumeLevel > 4) volumeLevel = 1;
-      audio.volume = volumeSteps[volumeLevel - 1];
-      if (volumeLevel === 1) { volumeBtn.textContent = "🔊 ▁"; }
-      else if (volumeLevel === 2) { volumeBtn.textContent = "🔊 ▁▃"; }
-      else if (volumeLevel === 3) { volumeBtn.textContent = "🔊 ▁▃▆"; }
-      else if (volumeLevel === 4) { volumeBtn.textContent = "🔊 ▁▃▆█"; }
-    }
+// Medya Fonksiyonları
+function showMedia(index){
+  const media=mediaItems[index];
+  let html='';
+  if(media.type==="image"){
+    html=`<img src="${media.src}">`;
+  } else if(media.type==="video"){
+    html=`<video controls>
+            <source src="${media.src}" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>`;
+  }
+  html+=`<div>
+          <button onclick="prevMedia()">⬅️ Önceki</button>
+          <button onclick="nextMedia()">Sonraki ➡️</button>
+         </div>`;
+  mediaContainer.innerHTML=html;
+}
+function nextMedia(){
+  currentMedia=(currentMedia+1)%mediaItems.length;
+  showMedia(currentMedia);
+}
+function prevMedia(){
+  currentMedia=(currentMedia-1+mediaItems.length)%mediaItems.length;
+  showMedia(currentMedia);
+}
 
-    // Medya galerisi fonksiyonları
-    function showMedia(index) {
-      const media = mediaItems[index];
-      let html = '';
-
-      if(media.type === "image"){
-        html = `<img src="${media.src}">`;
-      } else if(media.type === "video"){
-        html = `<video controls>
-                  <source src="${media.src}" type="video/mp4">
-                  Tarayıcınız video etiketini desteklemiyor.
-                </video>`;
-      }
-
-      html += `<button onclick="nextMedia()">İleri ➡️</button>`;
-      mediaContainer.innerHTML = html;
-    }
-
-    function nextMedia() {
-      currentMedia = (currentMedia + 1) % mediaItems.length;
-      showMedia(currentMedia);
-    }
-
-    // Sayfa yüklendiğinde ilk medya göster
-    showMedia(currentMedia);
-
-  </script>
+// İlk medya yükle
+showMedia(currentMedia);
+</script>
 </body>
 </html>
